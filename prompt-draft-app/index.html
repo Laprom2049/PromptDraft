@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-bKmGFN7SeIH8VE1S4xswesx4VxbldR0wBN2tVMlPSpE=' 'sha256-g28mk0Q5Kno5wbcxdusNwSPN/RHapg3ucGiqSaI1O2w='; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'none'">
+  <meta name="color-scheme" content="light dark">
+  <title>Prompt 文稿</title>
+  <style>
+:root {
+  color-scheme: light dark;
+  --bg: #f1f3f2; --paper: #fff; --ink: #27352f; --muted: #617169;
+  --line: #dce4de; --accent: #285b46; --accent-text: #fff; --soft: #eaf2ed;
+  --danger: #a2382d; --warning-bg: #fff4dc; --warning-ink: #6e4715;
+  --shadow: 0 8px 30px #17332618;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1d2420; --paper: #252d28; --ink: #e8eee9; --muted: #afbeb4; --line: #45534a; --accent: #b4dbc4; --accent-text: #183326; --soft: #35473c; --danger: #ffb4a5; --warning-bg: #443620; --warning-ink: #f2d39b; --shadow: 0 8px 30px #0004; }
+}
+* { box-sizing: border-box; }
+html { min-height: 100%; }
+body { margin: 0; color: var(--ink); background: var(--bg); font: 14px/1.6 "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif; }
+[hidden] { display: none !important; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button, summary { cursor: pointer; }
+button { background: var(--paper); border: 1px solid var(--line); padding: 7px 12px; border-radius: 6px; min-height: 35px; white-space: nowrap; }
+button:hover { background: var(--soft); }
+button:disabled { opacity: .45; cursor: default; }
+button.accent { color: var(--accent-text); background: var(--accent); border-color: var(--accent); }
+button.quiet { border-color: transparent; background: transparent; color: var(--muted); font-size: 12px; }
+button.danger { color: var(--danger); }
+input, textarea, select { background: var(--paper); }
+input:not([type="checkbox"]), select { border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; width: 100%; }
+textarea.variable-field { width: 100%; border: 1px solid var(--line); border-radius: 6px; padding: 8px 9px; min-height: 57px; resize: vertical; line-height: 1.6; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3, p { margin-top: 0; }
+h1 { font-size: 23px; line-height: 1.5; margin-bottom: 8px; }
+h2 { font-size: 15px; }
+h3 { font-size: 14px; }
+.app-header { background: var(--paper); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding: 14px 24px; border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; }
+.brand small { font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+.brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--accent); color: var(--accent-text); font: 25px/1 Georgia, serif; padding-bottom: 4px; }
+.file-actions, .toolbar-actions, .preview-actions, .inline-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 9px 22px; border-bottom: 1px solid var(--line); background: var(--paper); }
+.tabs { display: flex; gap: 4px; }
+.tabs button { background: transparent; border-color: transparent; }
+.tabs button[aria-selected="true"] { color: var(--accent); background: var(--soft); font-weight: 600; }
+#save-status { font-size: 12px; color: var(--muted); }
+#save-status.error { color: var(--danger); }
+.layout { max-width: 1500px; margin: 0 auto; display: grid; grid-template-columns: minmax(0,1fr) 290px; align-items: start; }
+.main-area { min-width: 0; padding: 28px; }
+.paper { background: var(--paper); border: 1px solid var(--line); border-radius: 3px; padding: 29px 40px 32px; min-width: 0; min-height: 510px; }
+.document-context { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; color: var(--muted); font-size: 12px; }
+input.document-title { border: 0; background: transparent; font-size: 25px; line-height: 1.5; font-weight: 600; padding: 0; margin-bottom: 25px; }
+.document-block { border-left: 3px solid transparent; margin: 0 -12px 18px; padding: 2px 10px 4px; }
+.document-block.is-current { border-left-color: var(--accent); background: linear-gradient(90deg,var(--soft),transparent); }
+.block-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 28px; margin-bottom: 3px; }
+.block-label { color: var(--muted); font-size: 12px; }
+.block-actions { display: flex; gap: 2px; }
+.block-actions button { font-size: 11px; padding: 2px 5px; min-height: 24px; border-color: transparent; background: transparent; color: var(--muted); }
+.block-actions button:hover { background: var(--soft); }
+.writing { display: block; width: 100%; resize: none; background: transparent; border: 0; border-radius: 2px; padding: 0 0 4px; overflow-y: hidden; font-size: 15px; line-height: 1.9; min-height: 32px; }
+.add-block { border-color: transparent; background: transparent; color: var(--muted); padding-left: 0; font-size: 13px; }
+.snippet { margin-top: 17px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; }
+.snippet summary { color: var(--accent); padding: 3px 0; }
+.snippet p { color: var(--muted); margin: 10px 0 0; }
+.author-note { border-top: 1px dashed var(--line); margin-top: 22px; padding-top: 16px; }
+.note-header { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.author-note .writing { color: var(--muted); font-size: 13px; }
+.sidebar { padding: 26px 22px; background: var(--paper); border-left: 1px solid var(--line); min-width: 0; align-self: stretch; }
+.side-section + .side-section { border-top: 1px solid var(--line); margin-top: 23px; padding-top: 20px; }
+.side-section h2 { margin: 0 0 12px; font-size: 13px; font-weight: 600; }
+.field-label { display: block; color: var(--muted); font-size: 12px; margin: 10px 0 5px; overflow-wrap: anywhere; }
+.evidence { font-size: 12px; margin: 13px 0; }
+.evidence div { display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; }
+.evidence dt { color: var(--muted); }
+.evidence dd { text-align: right; margin: 0; }
+.hint { color: var(--muted); font-size: 12px; line-height: 1.75; margin: 8px 0 0; overflow-wrap: anywhere; }
+.checkbox-label { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; margin-top: 16px; cursor: pointer; }
+input[type="checkbox"] { accent-color: var(--accent); width: 15px; height: 15px; margin: 4px 0 0; flex: 0 0 auto; }
+.check-row { display: flex; align-items: baseline; gap: 8px; font-size: 12px; padding: 5px 0; overflow-wrap: anywhere; }
+.check-row.bad { color: var(--danger); }
+.check-mark { color: var(--accent); }
+.check-row.bad .check-mark { color: var(--danger); }
+.eyebrow { margin-bottom: 7px; color: var(--muted); font-size: 12px; letter-spacing: .04em; }
+.subtle { font-size: 12px; color: var(--muted); line-height: 1.8; }
+.preview-actions { margin: 20px 0; }
+#preview-text { white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; font: 14px/1.9 Consolas, "Microsoft YaHei", monospace; margin: 24px 0 0; }
+.inline-warning { padding: 12px 15px; background: var(--warning-bg); color: var(--warning-ink); border-radius: 6px; font-size: 13px; white-space: pre-wrap; }
+.warning-banner { margin: 16px 24px 0; border: 1px solid var(--line); border-radius: 6px; padding: 14px 18px; background: var(--warning-bg); color: var(--warning-ink); font-size: 13px; }
+.warning-banner p { margin: 0 0 10px; }
+.history-item { border-top: 1px solid var(--line); padding: 17px 0; display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+.history-item strong { display: block; font-weight: 600; overflow-wrap: anywhere; }
+.history-item small { display: block; font-size: 12px; color: var(--muted); margin-top: 4px; }
+.history-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.history-actions button { font-size: 12px; }
+footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px 18px; padding: 11px 24px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); background: var(--paper); }
+#toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 100; max-width: calc(100% - 40px); width: max-content; background: var(--ink); color: var(--paper); padding: 12px 18px; border-radius: 8px; box-shadow: var(--shadow); font-size: 13px; }
+dialog { background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 24px 28px; max-width: 580px; width: calc(100% - 40px); max-height: 85vh; box-shadow: var(--shadow); }
+dialog::backdrop { background: #0005; }
+.dialog-head { display: flex; justify-content: space-between; gap: 18px; align-items: center; margin-bottom: 20px; }
+.dialog-head h2 { margin: 0; font-size: 20px; }
+dialog h3 { margin: 20px 0 8px; }
+dialog p { margin-bottom: 12px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+@media (max-width: 850px) { .layout { grid-template-columns: minmax(0,1fr) 250px; } .main-area { padding: 18px; } .paper { padding: 24px 25px; } .sidebar { padding: 22px 18px; } .shortcuts { display: none; } }
+@media (max-width: 670px) { .layout { grid-template-columns: minmax(0,1fr); } .sidebar { border-top: 1px solid var(--line); border-left: 0; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 22px; } .side-section + .side-section { border: 0; margin: 0; padding: 0; } .side-section:last-child { grid-column: 1/-1; border-top: 1px solid var(--line); padding-top: 18px; } .toolbar, .app-header { padding-left: 16px; padding-right: 16px; } .toolbar-actions { flex: 1; justify-content: space-between; } .warning-banner { margin-left: 16px; margin-right: 16px; } }
+@media (max-width: 400px) { .main-area { padding: 10px; } .paper { padding: 22px 20px; } .file-actions button { padding: 7px 9px; } .sidebar { display: block; } .side-section + .side-section { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 20px; } .block-actions { gap: 0; } .block-actions button { font-size: 11px; } }
+@media (pointer: coarse) { button, select, input:not([type="checkbox"]) { min-height: 44px; } .writing, input, select { font-size: 16px; } .block-actions button { min-height: 38px; } }
+
+</style>
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">p.</span><span>Prompt 文稿 <small id="version">0.1</small></span></div>
+      <nav class="file-actions" aria-label="文件操作">
+        <button type="button" id="new-document">新建</button>
+        <button type="button" id="open-document">打开</button>
+        <button type="button" id="save-document" class="accent">保存项目</button>
+        <button type="button" id="help-open" aria-label="使用说明">帮助</button>
+      </nav>
+    </header>
+    <div class="toolbar">
+      <div class="tabs" role="tablist" aria-label="文稿视图">
+        <button type="button" id="edit-tab" role="tab" aria-controls="edit-panel" aria-selected="true">文稿</button>
+        <button type="button" id="preview-tab" role="tab" aria-controls="preview-panel" aria-selected="false">发送预览</button>
+        <button type="button" id="history-tab" role="tab" aria-controls="history-panel" aria-selected="false">历史快照</button>
+      </div>
+      <div class="toolbar-actions">
+        <span id="save-status" role="status" aria-live="polite">正在恢复文稿…</span>
+        <button type="button" id="check-document">检查文稿</button>
+      </div>
+    </div>
+    <div id="storage-conflict" class="warning-banner" hidden>
+      <p id="conflict-message">另一窗口更新了文稿。本窗口已暂停自动保存。</p>
+      <div class="inline-actions">
+        <button type="button" id="conflict-download">保存本窗口项目</button>
+        <button type="button" id="load-remote">读取另一窗口内容</button>
+        <button type="button" id="keep-local">保留本窗口并继续</button>
+      </div>
+    </div>
+    <div id="storage-warning" class="warning-banner" role="alert" hidden></div>
+    <div class="layout">
+      <main class="main-area">
+        <section class="paper" id="edit-panel" role="tabpanel" aria-labelledby="edit-tab">
+          <div class="document-context"><span>我的文稿 / 本地编辑</span><button id="snapshot-document" type="button" class="quiet">保存快照</button></div>
+          <input id="document-title" class="document-title" aria-label="文稿标题" maxlength="240" placeholder="未命名文稿">
+          <div id="document-blocks"></div>
+          <button type="button" class="add-block" id="add-block">＋ 添加段落</button>
+          <details class="snippet" id="snippet-reference">
+            <summary>引用片段：结果报告 · v1</summary>
+            <p>返回修改摘要、验证结果、优化前后对比，以及未解决的问题。</p>
+          </details>
+          <section class="author-note">
+            <div class="note-header"><label for="author-note">作者备注</label><span>不进入发送内容</span></div>
+            <textarea id="author-note" class="writing" rows="2" placeholder="记录修改理由、待办或自己的想法…"></textarea>
+          </section>
+        </section>
+        <section class="paper" id="preview-panel" role="tabpanel" aria-labelledby="preview-tab" hidden>
+          <p class="eyebrow">只读预览 / 纯文本</p>
+          <h1>准备发送的内容</h1>
+          <p id="preview-meta" class="subtle"></p>
+          <div class="preview-actions">
+            <button type="button" id="copy-preview" class="accent">复制发送内容</button>
+            <button type="button" id="export-markdown">导出 Markdown</button>
+            <button type="button" id="export-text">导出 TXT</button>
+          </div>
+          <div id="preview-warning" class="inline-warning" hidden></div>
+          <pre id="preview-text"></pre>
+        </section>
+        <section class="paper" id="history-panel" role="tabpanel" aria-labelledby="history-tab" hidden>
+          <p class="eyebrow">本机记录 / 最多 20 个快照</p>
+          <h1>历史快照</h1>
+          <p class="subtle">保存快照，或打开、新建文稿时，保留一份当前内容。需要长期备份时，请保存项目文件。</p>
+          <div id="history-list"></div>
+        </section>
+      </main>
+      <aside class="sidebar" aria-label="段落属性、输入与检查">
+        <section class="side-section">
+          <h2>当前段落</h2>
+          <label for="block-type" class="field-label">段落用途</label>
+          <select id="block-type">
+            <option>目标</option><option>背景</option><option>约束</option><option>步骤建议</option><option>示例</option><option>验收</option><option>正文</option>
+          </select>
+          <dl class="evidence">
+            <div><dt>写入发送内容</dt><dd id="included-state">是</dd></div>
+            <div><dt>结果检查</dt><dd>未绑定</dd></div>
+            <div><dt>执行限制</dt><dd>未连接</dd></div>
+          </dl>
+          <p class="hint" id="type-hint">段落用途帮助整理文稿，不改变消息权限。</p>
+        </section>
+        <section class="side-section">
+          <h2>本次输入</h2>
+          <div id="variable-inputs"></div>
+          <label class="checkbox-label"><input type="checkbox" id="include-snippet"><span>附上“结果报告”片段</span></label>
+          <p class="hint">用 <code>{{变量名}}</code> 在正文中插入变量。</p>
+        </section>
+        <section class="side-section">
+          <h2>文稿检查</h2>
+          <div id="check-results"></div>
+          <p class="hint">检查输入与文档结构。任务结果需要另行验证。</p>
+        </section>
+      </aside>
+    </div>
+    <footer><span id="character-count"></span><span>离线编辑 · 执行器未连接</span><span class="shortcuts">Ctrl+S 保存项目 · Ctrl+O 打开</span></footer>
+    <div id="toast" role="status" aria-live="polite" hidden></div>
+    <input type="file" id="file-picker" accept=".json,.txt,.md,.markdown" hidden>
+    <dialog id="help-dialog">
+      <div class="dialog-head"><h2>使用 Prompt 文稿</h2><button type="button" id="help-close">关闭</button></div>
+      <p>直接写正文，按需为段落标记用途。<code>{{项目名}}</code> 这样的变量会在右侧出现输入框。</p>
+      <h3>保存与备份</h3>
+      <p>编辑内容会尝试自动保存在本机浏览器数据中。请留意顶部的保存状态。清理浏览器数据、修改安装路径或更换电脑可能影响自动恢复。</p>
+      <p>点击“保存项目”或按 Ctrl+S 下载 <code>.prompt.json</code> 文件，保存所有正文、变量与作者备注。文件通常进入系统下载目录；浏览器可能询问保存位置。用“打开”可继续编辑。</p>
+      <h3>发送内容</h3>
+      <p>“发送预览”会替换变量、展开片段，并排除作者备注。支持复制、导出 TXT 或 Markdown。“段落用途”仅用于组织文字，尚未接入模型、检查器或 Agent 执行器。</p>
+      <h3>常用操作</h3>
+      <p>Ctrl+O 打开项目或文本；Ctrl+S 保存项目；Ctrl+Z 撤销当前文本框中的文字编辑。删除段落需要确认，打开或新建文稿前会尝试保存历史快照。</p>
+      <p class="subtle">本页不发送网络请求。程序使用系统 Edge 独立窗口；浏览器自身的更新和系统服务由其设置管理。</p>
+    </dialog>
+  </div>
+  <script>
+(function (root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.PromptDraftCore = api;
+})(typeof globalThis === 'object' ? globalThis : this, function () {
+  'use strict';
+  const VERSION = '0.1.0';
+  const TYPES = ['目标', '背景', '约束', '步骤建议', '示例', '验收', '正文'];
+  const SNIPPET_VERSION = 'report-v1';
+  const SNIPPET_TEXT = '返回修改摘要、验证结果、优化前后对比，以及未解决的问题。';
+  const MAX_FILE_BYTES = 5 * 1024 * 1024;
+  const owns = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+
+  function id() {
+    if (typeof globalThis.crypto === 'object' && typeof globalThis.crypto.randomUUID === 'function') return globalThis.crypto.randomUUID();
+    return 'p-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12);
+  }
+
+  function defaultProject() {
+    const now = new Date().toISOString();
+    return {
+      schemaVersion: 1,
+      title: '性能优化任务',
+      blocks: [
+        { id: id(), type: '目标', text: '分析 {{project}} 的性能瓶颈，提出并实现必要的优化。' },
+        { id: id(), type: '约束', text: '保持公开 API 不变。' },
+        { id: id(), type: '步骤建议', text: '每次修改后运行测试；失败时分析原因并修复，最多重试 3 次。仍未通过时停止并报告。' },
+        { id: id(), type: '验收', text: '全部测试通过。在相同环境与输入下报告优化前后的基准结果，并解释性能变化。' }
+      ],
+      variables: Object.assign(Object.create(null), { project: '示例项目' }),
+      authorNote: '先用小型项目试验这段任务，确认检查方式后再扩大范围。',
+      includeSnippet: true,
+      snippetVersion: SNIPPET_VERSION,
+      createdAt: now,
+      updatedAt: now
+    };
+  }
+
+  function record(value, label) {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error(label + '格式错误。');
+    return value;
+  }
+
+  function boundedString(value, label, max, fallback) {
+    if (value === undefined && fallback !== undefined) return fallback;
+    if (typeof value !== 'string') throw new Error(label + '必须是文本。');
+    if (value.length > max) throw new Error(label + '过长。');
+    if (value.includes('\u0000')) throw new Error(label + '包含不支持的空字符。');
+    return value;
+  }
+
+  function validateProject(raw) {
+    record(raw, '项目');
+    if (raw.schemaVersion !== 1) throw new Error('不支持的项目版本。请打开本工具导出的 .prompt.json 文件。');
+    if (!Array.isArray(raw.blocks) || raw.blocks.length < 1 || raw.blocks.length > 500) throw new Error('项目应包含 1 至 500 个段落。');
+    const ids = new Set();
+    const blocks = raw.blocks.map((block, index) => {
+      record(block, '段落 ' + (index + 1));
+      const type = boundedString(block.type, '段落用途', 20);
+      if (!TYPES.includes(type)) throw new Error('未知的段落用途：' + type);
+      const blockID = boundedString(block.id, '段落 ID', 120);
+      if (!blockID || ids.has(blockID) || !/^[a-zA-Z0-9_-]+$/.test(blockID)) throw new Error('段落 ID 无效或重复。');
+      ids.add(blockID);
+      return { id: blockID, type, text: boundedString(block.text, '段落正文', 2000000) };
+    });
+    const rawVariables = record(raw.variables === undefined ? {} : raw.variables, '变量');
+    const names = Object.keys(rawVariables);
+    if (names.length > 1000) throw new Error('变量数量超过限制。');
+    const variables = Object.create(null);
+    for (const name of names) {
+      if (!name.trim() || name.length > 100 || /[{}\r\n\u0000]/.test(name)) throw new Error('变量名称无效。');
+      variables[name] = boundedString(rawVariables[name], '变量值', 2000000);
+    }
+    if (typeof raw.includeSnippet !== 'boolean') throw new Error('引用片段的状态无效。');
+    if (raw.snippetVersion !== SNIPPET_VERSION) throw new Error('不支持的引用片段版本。');
+    const now = new Date().toISOString();
+    const result = {
+      schemaVersion: 1,
+      title: boundedString(raw.title, '文稿标题', 500),
+      blocks,
+      variables,
+      authorNote: boundedString(raw.authorNote, '作者备注', 2000000, ''),
+      includeSnippet: raw.includeSnippet,
+      snippetVersion: SNIPPET_VERSION,
+      createdAt: boundedString(raw.createdAt, '创建时间', 64, now),
+      updatedAt: boundedString(raw.updatedAt, '修改时间', 64, now)
+    };
+    if (new TextEncoder().encode(JSON.stringify(result)).byteLength > MAX_FILE_BYTES) throw new Error('项目内容超过 5 MB 限制。');
+    return result;
+  }
+
+  function sourceText(project) {
+    const parts = [];
+    if (project.title.trim()) parts.push('# ' + project.title.trim());
+    for (const block of project.blocks) {
+      if (!block.text.trim()) continue;
+      parts.push((block.type === '正文' ? '' : '## ' + block.type + '\n') + block.text);
+    }
+    if (project.includeSnippet) parts.push('## 结果报告\n' + SNIPPET_TEXT);
+    return parts.join('\n\n');
+  }
+
+  function parseTemplate(source) {
+    const segments = [];
+    const errors = [];
+    let buffer = '';
+    const flush = () => { if (buffer) { segments.push({ kind: 'text', text: buffer }); buffer = ''; } };
+    for (let i = 0; i < source.length;) {
+      if (source.startsWith('\\{{', i)) {
+        buffer += '{{';
+        i += 3;
+        continue;
+      }
+      if (!source.startsWith('{{', i)) { buffer += source[i++]; continue; }
+      const end = source.indexOf('}}', i + 2);
+      if (end < 0) {
+        errors.push({ message: '有变量占位符缺少结尾的 }}。字面量可写成 \\{{。' });
+        buffer += source.slice(i);
+        break;
+      }
+      const raw = source.slice(i, end + 2);
+      const name = source.slice(i + 2, end).trim();
+      if (!name || name.length > 100 || /[{}\r\n]/.test(name)) {
+        errors.push({ message: !name ? '变量名不能为空。' : '变量名称应为不含花括号和换行的短文本。' });
+        buffer += raw;
+      } else {
+        flush();
+        segments.push({ kind: 'variable', name, raw });
+      }
+      i = end + 2;
+    }
+    flush();
+    return { segments, errors };
+  }
+
+  function compile(project) {
+    const parsed = parseTemplate(sourceText(project));
+    const variables = [];
+    const missing = [];
+    const seen = new Set();
+    const output = [];
+    for (const segment of parsed.segments) {
+      if (segment.kind === 'text') { output.push(segment.text); continue; }
+      const name = segment.name;
+      const value = owns(project.variables, name) ? project.variables[name] : '';
+      const filled = typeof value === 'string' && value.trim().length > 0;
+      if (!seen.has(name)) {
+        variables.push(name);
+        if (!filled) missing.push(name);
+        seen.add(name);
+      }
+      output.push(filled ? value : segment.raw);
+    }
+    const text = output.join('');
+    return {
+      text,
+      variables,
+      missing,
+      errors: parsed.errors,
+      bodyPresent: project.blocks.some(block => block.text.trim().length > 0),
+      chars: Array.from(text).length
+    };
+  }
+
+  function serialize(project) {
+    return JSON.stringify(validateProject(project), null, 2);
+  }
+
+  function clone(project) {
+    return validateProject(JSON.parse(serialize(project)));
+  }
+
+  function importText(text, filename) {
+    boundedString(text, '导入内容', MAX_FILE_BYTES);
+    const now = new Date().toISOString();
+    return validateProject({
+      schemaVersion: 1,
+      title: String(filename || '导入文稿').replace(/\.(txt|md|markdown)$/i, '').slice(0, 500),
+      blocks: [{ id: id(), type: '正文', text: text.replace(/^\uFEFF/, '') }],
+      variables: Object.create(null),
+      authorNote: '',
+      includeSnippet: false,
+      snippetVersion: SNIPPET_VERSION,
+      createdAt: now,
+      updatedAt: now
+    });
+  }
+
+  function safeFilename(title) {
+    const base = String(title || '提示词文稿').replace(/[<>:"/\\|?*\u0000-\u001F]/g, '-').replace(/[. ]+$/g, '').trim().slice(0, 100);
+    if (!base || /^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)/i.test(base)) return '提示词文稿';
+    return base;
+  }
+
+  return { VERSION, TYPES, SNIPPET_VERSION, SNIPPET_TEXT, MAX_FILE_BYTES, id, defaultProject, validateProject, compile, serialize, clone, importText, safeFilename, parseTemplate };
+});
+
+</script>
+  <script>
+(function () {
+  'use strict';
+  const C = window.PromptDraftCore;
+  const el = (id) => document.getElementById(id);
+  const KEY = 'prompt-draft.project.v1';
+  const BACKUP = 'prompt-draft.project.backup.v1';
+  const HISTORY = 'prompt-draft.history.v1';
+  const session = C.id();
+  let project = C.defaultProject();
+  let selected = project.blocks[1] ? project.blocks[1].id : project.blocks[0].id;
+  let view = 'edit';
+  let compiled = C.compile(project);
+  let variableSignature = null;
+  let dirty = false;
+  let paused = false;
+  let lastSavedRaw = null;
+  let lastSavedProject = '';
+  let saveTimer = null;
+  let toastTimer = null;
+  let composing = false;
+  let history = [];
+
+  function notify(text) {
+    el('toast').textContent = text;
+    el('toast').hidden = false;
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => { el('toast').hidden = true; }, 6500);
+  }
+
+  function warning(text) {
+    el('storage-warning').textContent = text;
+    el('storage-warning').hidden = !text;
+  }
+
+  function saveStatus(text, error) {
+    el('save-status').textContent = text;
+    el('save-status').classList.toggle('error', Boolean(error));
+  }
+
+  function pauseForConflict(message) {
+    paused = true;
+    window.clearTimeout(saveTimer);
+    el('conflict-message').textContent = message || '另一窗口更新了文稿。本窗口已暂停自动保存，请先保存项目文件，再选择要继续使用的内容。';
+    el('storage-conflict').hidden = false;
+    saveStatus('自动恢复更新已暂停', true);
+  }
+
+  function unpack(raw) {
+    const value = JSON.parse(raw);
+    return C.validateProject(value && value.project ? value.project : value);
+  }
+
+  function loadLocal() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      lastSavedRaw = raw;
+      if (raw) {
+        try {
+          project = unpack(raw);
+          lastSavedProject = C.serialize(project);
+          saveStatus('已恢复本机文稿');
+        } catch (error) {
+          const backup = localStorage.getItem(BACKUP);
+          if (backup) {
+            try {
+              project = unpack(backup);
+              pauseForConflict('当前自动恢复副本无法读取，已打开上一份备份。请先保存项目文件；确认后可保留本窗口并继续。');
+            } catch (backupError) {
+              pauseForConflict('自动恢复副本及备份无法读取。原数据尚未覆盖；请打开已有项目文件，或保留当前新文稿并继续。');
+            }
+          } else {
+            pauseForConflict('自动恢复副本无法读取。原数据尚未覆盖；请打开已有项目文件，或保留当前新文稿并继续。');
+          }
+        }
+      } else {
+        saveStatus('新文稿 · 尚未更新自动恢复副本');
+      }
+    } catch (error) {
+      saveStatus('自动恢复不可用', true);
+      warning('自动恢复不可用，请用“保存项目”导出备份。你仍可编辑、导入和导出文稿。');
+    }
+    try {
+      const stored = JSON.parse(localStorage.getItem(HISTORY) || '[]');
+      if (Array.isArray(stored)) {
+        history = stored.slice(0, 20).map((item) => ({
+          id: typeof item.id === 'string' ? item.id : C.id(),
+          time: typeof item.time === 'string' ? item.time : new Date().toISOString(),
+          reason: typeof item.reason === 'string' ? item.reason.slice(0, 100) : '快照',
+          project: C.validateProject(item.project)
+        }));
+      }
+    } catch (error) {
+      history = [];
+      warning('部分本机历史记录无法读取。当前文稿不受影响；请保存项目文件作为备份。');
+    }
+  }
+
+  function persistNow() {
+    window.clearTimeout(saveTimer);
+    if (paused) return false;
+    try {
+      const serialized = C.serialize(project);
+      const actual = localStorage.getItem(KEY);
+      if (actual !== lastSavedRaw) {
+        pauseForConflict();
+        return false;
+      }
+      if (serialized === lastSavedProject && actual) {
+        dirty = false;
+        return true;
+      }
+      const envelope = JSON.stringify({ writer: session, savedAt: new Date().toISOString(), project: JSON.parse(serialized) });
+      if (lastSavedRaw) {
+        try { unpack(lastSavedRaw); localStorage.setItem(BACKUP, lastSavedRaw); }
+        catch (error) {
+          if (error && error.name === 'QuotaExceededError') throw error;
+        }
+      }
+      localStorage.setItem(KEY, envelope);
+      lastSavedRaw = envelope;
+      lastSavedProject = serialized;
+      dirty = false;
+      saveStatus('自动恢复副本已更新 ' + new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }));
+      warning('');
+      return true;
+    } catch (error) {
+      dirty = true;
+      saveStatus('自动恢复不可用 · 请保存项目', true);
+      warning('自动恢复更新失败。请点击“保存项目”下载备份；当前内容仍保留在这个窗口中。' + (error && error.message ? ' ' + error.message : ''));
+      return false;
+    }
+  }
+
+  function changed() {
+    project.updatedAt = new Date().toISOString();
+    dirty = true;
+    updateDerived();
+    if (paused) return;
+    saveStatus('等待更新自动恢复副本…');
+    window.clearTimeout(saveTimer);
+    saveTimer = window.setTimeout(persistNow, 500);
+  }
+
+  function resize(area) {
+    if (area && area.offsetParent !== null) {
+      area.style.height = 'auto';
+      area.style.height = Math.max(32, area.scrollHeight) + 'px';
+    }
+  }
+
+  function resizeAll() {
+    document.querySelectorAll('textarea.writing').forEach(resize);
+  }
+
+  function selectBlock(id) {
+    const block = project.blocks.find((item) => item.id === id);
+    if (!block) return;
+    selected = id;
+    document.querySelectorAll('.document-block').forEach((node) => node.classList.toggle('is-current', node.dataset.block === id));
+    el('block-type').value = block.type;
+    el('included-state').textContent = block.text.trim() ? '是' : '空段落，不发送';
+    const hints = {
+      '约束': '标记为“约束”会整理正文，不会自动限制 Agent 的操作。',
+      '验收': '验收文字会进入发送内容，独立的结果检查尚未绑定。',
+      '步骤建议': '这里描述期望的步骤，重试次数尚未由执行器强制计数。'
+    };
+    el('type-hint').textContent = hints[block.type] || '段落用途帮助整理文稿，不改变消息权限。';
+  }
+
+  function button(text, action, label) {
+    const node = document.createElement('button');
+    node.type = 'button';
+    node.textContent = text;
+    if (label) node.setAttribute('aria-label', label);
+    node.addEventListener('click', action);
+    return node;
+  }
+
+  function moveBlock(id, direction) {
+    const index = project.blocks.findIndex((item) => item.id === id);
+    const target = index + direction;
+    if (target < 0 || target >= project.blocks.length) return;
+    const current = el('block-' + id);
+    const other = el('block-' + project.blocks[target].id);
+    const swapped = project.blocks[index];
+    project.blocks[index] = project.blocks[target];
+    project.blocks[target] = swapped;
+    if (direction < 0) current.parentNode.insertBefore(current, other);
+    else current.parentNode.insertBefore(other, current);
+    selectBlock(id);
+    changed();
+    refreshMoveButtons();
+  }
+
+  function refreshMoveButtons() {
+    project.blocks.forEach((block, index) => {
+      const node = el('block-' + block.id);
+      node.querySelector('[data-direction="up"]').disabled = index === 0;
+      node.querySelector('[data-direction="down"]').disabled = index === project.blocks.length - 1;
+    });
+  }
+
+  function createBlock(block) {
+    const wrap = document.createElement('div');
+    wrap.className = 'document-block';
+    wrap.dataset.block = block.id;
+    wrap.id = 'block-' + block.id;
+    const head = document.createElement('div');
+    head.className = 'block-head';
+    const label = document.createElement('label');
+    label.className = 'block-label';
+    label.htmlFor = 'text-' + block.id;
+    label.textContent = block.type;
+    const actions = document.createElement('div');
+    actions.className = 'block-actions';
+    const up = button('上移', () => moveBlock(block.id, -1), '上移这一段');
+    up.dataset.direction = 'up';
+    const down = button('下移', () => moveBlock(block.id, 1), '下移这一段');
+    down.dataset.direction = 'down';
+    const remove = button('删除', () => {
+      if (block.text.trim() && !window.confirm('删除这一段正文？此操作不能通过文字撤销恢复。')) return;
+      const index = project.blocks.findIndex((item) => item.id === block.id);
+      project.blocks.splice(index, 1);
+      wrap.remove();
+      if (!project.blocks.length) {
+        const empty = { id: C.id(), type: '正文', text: '' };
+        project.blocks.push(empty);
+        createBlock(empty);
+      }
+      if (selected === block.id) selectBlock(project.blocks[Math.min(index, project.blocks.length - 1)].id);
+      refreshMoveButtons();
+      changed();
+    }, '删除这一段');
+    actions.append(up, down, remove);
+    head.append(label, actions);
+    const area = document.createElement('textarea');
+    area.id = 'text-' + block.id;
+    area.className = 'writing';
+    area.rows = 1;
+    area.maxLength = 2000000;
+    area.value = block.text;
+    area.placeholder = '直接写下一段要求…';
+    area.addEventListener('focus', () => selectBlock(block.id));
+    area.addEventListener('input', () => {
+      block.text = area.value;
+      resize(area);
+      changed();
+      selectBlock(block.id);
+    });
+    wrap.append(head, area);
+    el('document-blocks').appendChild(wrap);
+  }
+
+  function syncVariables(names) {
+    const signature = JSON.stringify(names);
+    if (signature === variableSignature) return;
+    variableSignature = signature;
+    const container = el('variable-inputs');
+    container.replaceChildren();
+    if (!names.length) {
+      const empty = document.createElement('p');
+      empty.className = 'hint';
+      empty.textContent = '正文中暂无变量。';
+      container.appendChild(empty);
+    }
+    names.forEach((name, index) => {
+      const label = document.createElement('label');
+      label.className = 'field-label';
+      label.htmlFor = 'variable-' + index;
+      label.textContent = '{{' + name + '}}';
+      const input = document.createElement('textarea');
+      input.className = 'variable-field';
+      input.id = 'variable-' + index;
+      input.rows = 2;
+      input.maxLength = 2000000;
+      input.value = Object.prototype.hasOwnProperty.call(project.variables, name) ? project.variables[name] : '';
+      input.placeholder = '填写本次使用的值';
+      input.addEventListener('input', () => { project.variables[name] = input.value; changed(); });
+      container.append(label, input);
+    });
+  }
+
+  function checkRow(pass, text) {
+    const row = document.createElement('div');
+    row.className = 'check-row' + (pass ? '' : ' bad');
+    const mark = document.createElement('span');
+    mark.className = 'check-mark';
+    mark.textContent = pass ? '✓' : '!';
+    mark.setAttribute('aria-hidden', 'true');
+    const value = document.createElement('span');
+    value.textContent = (pass ? '通过 · ' : '待补充 · ') + text;
+    row.append(mark, value);
+    el('check-results').appendChild(row);
+  }
+
+  function updateDerived() {
+    compiled = C.compile(project);
+    syncVariables(compiled.variables);
+    el('preview-text').textContent = compiled.text;
+    el('preview-meta').textContent = (compiled.variables.length - compiled.missing.length) + ' 个变量已填写 · ' + (project.includeSnippet ? '1' : '0') + ' 个引用片段 · 作者备注已排除';
+    const problems = compiled.errors.map((item) => item.message);
+    if (compiled.missing.length) problems.push('缺少变量值：' + compiled.missing.join('、'));
+    if (!compiled.bodyPresent) problems.push('正文尚未填写。');
+    el('preview-warning').textContent = problems.join('\n');
+    el('preview-warning').hidden = !problems.length;
+    el('snippet-reference').hidden = !project.includeSnippet;
+    el('check-results').replaceChildren();
+    checkRow(compiled.bodyPresent, compiled.bodyPresent ? '正文有可发送内容' : '正文尚未填写');
+    checkRow(!compiled.errors.length, compiled.errors.length ? compiled.errors.map((item) => item.message).join(' ') : '变量占位符格式完整');
+    checkRow(!compiled.missing.length, compiled.missing.length ? '缺少输入：' + compiled.missing.join('、') : (compiled.variables.length ? '全部变量已填写' : '没有待填写变量'));
+    el('character-count').textContent = '发送内容 ' + compiled.chars.toLocaleString('zh-CN') + ' 字符';
+    document.title = (project.title || '未命名文稿') + ' — Prompt 文稿';
+  }
+
+  function renderProject() {
+    el('document-title').value = project.title;
+    el('author-note').value = project.authorNote;
+    el('include-snippet').checked = project.includeSnippet;
+    el('document-blocks').replaceChildren();
+    project.blocks.forEach(createBlock);
+    variableSignature = null;
+    updateDerived();
+    if (!project.blocks.some((item) => item.id === selected)) selected = project.blocks[0].id;
+    selectBlock(selected);
+    refreshMoveButtons();
+    resizeAll();
+  }
+
+  function showView(next) {
+    view = next;
+    for (const name of ['edit', 'preview', 'history']) {
+      el(name + '-panel').hidden = name !== next;
+      el(name + '-tab').setAttribute('aria-selected', String(name === next));
+    }
+    if (next === 'edit') resizeAll();
+    if (next === 'history') renderHistory();
+  }
+
+  function saveHistory() {
+    try { localStorage.setItem(HISTORY, JSON.stringify(history)); return true; }
+    catch (error) { return false; }
+  }
+
+  function snapshot(reason, announce) {
+    try {
+      const captured = C.clone(project);
+      const latest = history[0];
+      if (!latest || C.serialize(latest.project) !== C.serialize(captured)) {
+        history.unshift({ id: C.id(), time: new Date().toISOString(), reason, project: captured });
+        history = history.slice(0, 20);
+      }
+      const saved = saveHistory();
+      if (announce) notify(saved ? '已保存本机快照。长期备份请下载项目文件。' : '快照暂存在本窗口，无法保存到本机。请下载项目文件备份。');
+      if (view === 'history') renderHistory();
+      return saved;
+    } catch (error) {
+      if (announce) notify('无法建立快照：' + error.message);
+      return false;
+    }
+  }
+
+  function renderHistory() {
+    const list = el('history-list');
+    list.replaceChildren();
+    if (!history.length) {
+      const empty = document.createElement('p');
+      empty.className = 'subtle';
+      empty.textContent = '还没有快照。可以在文稿页点击“保存快照”。';
+      list.appendChild(empty);
+      return;
+    }
+    history.forEach((item) => {
+      const row = document.createElement('div');
+      row.className = 'history-item';
+      const description = document.createElement('div');
+      const title = document.createElement('strong');
+      title.textContent = item.project.title || '未命名文稿';
+      const time = document.createElement('small');
+      const date = new Date(item.time);
+      time.textContent = (Number.isNaN(date.valueOf()) ? item.time : date.toLocaleString('zh-CN', { hour12: false })) + ' · ' + item.reason;
+      description.append(title, time);
+      const actions = document.createElement('div');
+      actions.className = 'history-actions';
+      actions.append(button('导出', () => downloadProject(item.project)), button('恢复', () => {
+        if (!window.confirm('恢复这个快照？当前文稿会先尝试保存为新的历史快照。')) return;
+        replaceProject(C.clone(item.project), '恢复快照之前');
+      }));
+      row.append(description, actions);
+      list.appendChild(row);
+    });
+  }
+
+  function replaceProject(next, reason) {
+    const valid = C.validateProject(next);
+    if (!snapshot(reason, false) && !window.confirm('无法把当前内容写入本机历史。请先保存项目备份。仍要切换文稿吗？')) return false;
+    project = valid;
+    selected = project.blocks[0].id;
+    project.updatedAt = new Date().toISOString();
+    dirty = true;
+    renderProject();
+    showView('edit');
+    if (!paused) persistNow();
+    else saveStatus('当前文稿尚未更新自动恢复副本', true);
+    return true;
+  }
+
+  function download(text, name, type) {
+    const blob = new Blob([text], { type });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = name;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1500);
+  }
+
+  function downloadProject(value) {
+    try {
+      const data = C.serialize(value || project);
+      if (!value || value === project) persistNow();
+      download(data, C.safeFilename((value || project).title) + '.prompt.json', 'application/json;charset=utf-8');
+      notify('项目下载已发起，请在下载目录中确认 .prompt.json 文件。');
+    } catch (error) { notify('无法保存项目：' + error.message); }
+  }
+
+  function confirmIncomplete() {
+    updateDerived();
+    if (!compiled.errors.length && !compiled.missing.length && compiled.bodyPresent) return true;
+    return window.confirm('文稿中还有未填写的输入、格式问题或空正文。是否仍按当前预览导出？');
+  }
+
+  function exportText(extension) {
+    if (!confirmIncomplete()) return;
+    download('\uFEFF' + compiled.text.replace(/\r?\n/g, '\r\n'), C.safeFilename(project.title) + '.' + extension, 'text/plain;charset=utf-8');
+    notify('发送内容下载已发起。作者备注未包含在导出文件中。');
+  }
+
+  async function copyPreview() {
+    if (!confirmIncomplete()) return;
+    const text = compiled.text;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+        notify('已复制发送内容，作者备注已排除。');
+        return;
+      }
+    } catch (error) { /* Use a user-initiated browser copy fallback below. */ }
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.className = 'sr-only';
+    document.body.appendChild(area);
+    area.focus();
+    area.select();
+    let succeeded = false;
+    try { succeeded = document.execCommand('copy'); }
+    catch (error) { succeeded = false; }
+    area.remove();
+    el('copy-preview').focus();
+    notify(succeeded ? '已复制发送内容，作者备注已排除。' : '复制未成功。请选中预览文字手动复制，或导出文件。');
+  }
+
+  async function openFile(file) {
+    if (!file) return;
+    if (file.size > C.MAX_FILE_BYTES) { notify('文件超过 5 MB，请选择较小的项目或文本文件。'); return; }
+    try {
+      const text = (await file.text()).replace(/^\uFEFF/, '');
+      const isJSON = /\.json$/i.test(file.name);
+      const candidate = isJSON ? C.validateProject(JSON.parse(text)) : C.importText(text, file.name);
+      if (replaceProject(candidate, '打开文件之前')) notify('已打开“' + file.name + '”。');
+    } catch (error) { notify('打开失败，当前文稿已保留：' + error.message); }
+  }
+
+  el('document-title').addEventListener('input', (event) => { project.title = event.target.value; changed(); });
+  el('author-note').addEventListener('input', (event) => { project.authorNote = event.target.value; resize(event.target); changed(); });
+  el('include-snippet').addEventListener('change', (event) => { project.includeSnippet = event.target.checked; changed(); });
+  el('block-type').addEventListener('change', (event) => {
+    const block = project.blocks.find((item) => item.id === selected);
+    if (!block) return;
+    block.type = event.target.value;
+    el('block-' + block.id).querySelector('.block-label').textContent = block.type;
+    selectBlock(block.id);
+    changed();
+  });
+  el('add-block').addEventListener('click', () => {
+    if (project.blocks.length >= 500) { notify('一份项目最多包含 500 个段落。'); return; }
+    const block = { id: C.id(), type: '正文', text: '' };
+    project.blocks.push(block);
+    createBlock(block);
+    refreshMoveButtons();
+    changed();
+    el('text-' + block.id).focus();
+    resize(el('text-' + block.id));
+  });
+  ['edit', 'preview', 'history'].forEach((name) => el(name + '-tab').addEventListener('click', () => showView(name)));
+  el('check-document').addEventListener('click', () => {
+    updateDerived();
+    notify(compiled.errors.length || compiled.missing.length || !compiled.bodyPresent ? '文稿检查已更新，请查看右侧待补充项目。' : '文稿结构与输入检查通过。没有运行模型或工具。');
+  });
+  el('snapshot-document').addEventListener('click', () => snapshot('手动快照', true));
+  el('save-document').addEventListener('click', () => downloadProject());
+  el('open-document').addEventListener('click', () => el('file-picker').click());
+  el('file-picker').addEventListener('change', (event) => {
+    const file = event.target.files && event.target.files[0];
+    openFile(file);
+    event.target.value = '';
+  });
+  el('new-document').addEventListener('click', () => {
+    if (!window.confirm('新建一份空白文稿？当前文稿会先尝试保存为历史快照。')) return;
+    replaceProject(C.importText('', '未命名文稿.txt'), '新建文稿之前');
+  });
+  el('copy-preview').addEventListener('click', copyPreview);
+  el('export-markdown').addEventListener('click', () => exportText('md'));
+  el('export-text').addEventListener('click', () => exportText('txt'));
+  el('help-open').addEventListener('click', () => el('help-dialog').showModal());
+  el('help-close').addEventListener('click', () => el('help-dialog').close());
+  el('conflict-download').addEventListener('click', () => downloadProject());
+  el('load-remote').addEventListener('click', () => {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (!raw) { notify('没有可读取的自动恢复副本。请保存本窗口项目后再继续。'); return; }
+      const external = unpack(raw);
+      if (!window.confirm('读取本机的最新副本并替换当前窗口内容？如需保留当前修改，请先保存项目。')) return;
+      project = external;
+      selected = project.blocks[0].id;
+      lastSavedRaw = raw;
+      lastSavedProject = C.serialize(project);
+      dirty = false;
+      paused = false;
+      el('storage-conflict').hidden = true;
+      warning('');
+      renderProject();
+      saveStatus('已读取本机最新副本');
+    } catch (error) { notify('无法读取该副本：' + error.message); }
+  });
+  el('keep-local').addEventListener('click', () => {
+    if (!window.confirm('继续使用本窗口内容并覆盖本机自动恢复副本？另一窗口中的修改不会合并。建议先保存项目文件。')) return;
+    try { lastSavedRaw = localStorage.getItem(KEY); }
+    catch (error) { notify('本机存储仍不可用，请保存项目文件。'); return; }
+    lastSavedProject = '';
+    paused = false;
+    el('storage-conflict').hidden = true;
+    persistNow();
+  });
+  document.addEventListener('compositionstart', () => { composing = true; });
+  document.addEventListener('compositionend', () => { composing = false; });
+  document.addEventListener('keydown', (event) => {
+    if (composing || event.isComposing) return;
+    if ((event.ctrlKey || event.metaKey) && !event.altKey) {
+      if (event.key.toLowerCase() === 's') { event.preventDefault(); downloadProject(); }
+      if (event.key.toLowerCase() === 'o') { event.preventDefault(); el('file-picker').click(); }
+    }
+  });
+  window.addEventListener('storage', (event) => {
+    if (event.key === KEY && event.newValue !== lastSavedRaw) pauseForConflict();
+    if (event.key === HISTORY && event.newValue) {
+      try {
+        const remote = JSON.parse(event.newValue);
+        if (Array.isArray(remote)) history = remote.slice(0, 20).map((item) => ({ id: item.id, time: item.time, reason: item.reason, project: C.validateProject(item.project) }));
+        if (view === 'history') renderHistory();
+      } catch (error) { /* Keep the last valid history already in memory. */ }
+    }
+  });
+  window.addEventListener('beforeunload', (event) => {
+    if (dirty && !persistNow()) { event.preventDefault(); event.returnValue = ''; }
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden && dirty && !paused) persistNow(); });
+  window.addEventListener('resize', resizeAll);
+  el('version').textContent = C.VERSION;
+  loadLocal();
+  renderProject();
+  if (!lastSavedRaw && !paused) persistNow();
+})();
+
+</script>
+</body>
+</html>

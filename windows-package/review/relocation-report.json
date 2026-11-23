@@ -1,0 +1,48 @@
+{
+  "method": "Independent original ELF symbol section/value/addend equality, plus linker-map-based PE field verification",
+  "pass": true,
+  "artifacts": [
+    {
+      "name": "PromptDraft",
+      "original_relocations": 47,
+      "coff_relocations": 47,
+      "linked_fields_checked": 47,
+      "sha256": {
+        "elf": "8233da79897a0285d7af279a00cc3c101fe1570d4904b10b23cca185d16b04d2",
+        "coff": "396f0fc400df022a81a9259f2b84cfa3e257e895bda3ba97007437092ae44c74",
+        "map": "626acae3e1aeb9d558bd29fc48af67d89f3a3d2efb7d6943d016425542cc6924",
+        "exe": "68160b6daad24450b58ce29d67f8f4a867a544e8016a1423e4bbf0b24103d188"
+      },
+      "errors": [],
+      "linked_validation": "all original relocation fields evaluated"
+    },
+    {
+      "name": "Uninstall",
+      "original_relocations": 71,
+      "coff_relocations": 71,
+      "linked_fields_checked": 71,
+      "sha256": {
+        "elf": "d3ae0108791eebeed68dffab1302e98abde99653dab7c5a4c1d6633e36d77ecc",
+        "coff": "6a04e8ceb0a675a64ab521a503dab6748feeb2c0ea883395aa8371764eeab61c",
+        "map": "4c93cad5f904e41872b8109a0979ee8a77df98fb5dcb36a0c19af3f2465f06ca",
+        "exe": "64970c496391a0861abb4a5e96a07b0daef32989ae09fabc3258af37aa8de3d5"
+      },
+      "errors": [],
+      "linked_validation": "all original relocation fields evaluated"
+    },
+    {
+      "name": "PromptDraft-Setup-0.1.0-x64",
+      "original_relocations": 114,
+      "coff_relocations": 114,
+      "linked_fields_checked": 114,
+      "sha256": {
+        "elf": "094a5ec3be0aecb13f33247c527b25951ffebe5e499891a5e3a18530d5d46777",
+        "coff": "05b9bec6823f9ccce46a5dadc9988238318923a076f316f34b0bd01c87da2f01",
+        "map": "91680ad5ba4e32e537d3627d78c0887563e06d768cf0812bf69ebc37eb6a7321",
+        "exe": "a5b2def6237512b71008361008ab6f134ded8f694d367e707a2366c5f7803ad7"
+      },
+      "errors": [],
+      "linked_validation": "all original relocation fields evaluated"
+    }
+  ]
+}

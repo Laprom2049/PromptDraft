@@ -1,0 +1,52 @@
+Prompt 文稿 0.1.0 — 源代码与构建说明
+=====================================
+
+这个源代码包包含：
+  prompt-draft-app/src/       离线编辑器 HTML、CSS 和 JavaScript
+  prompt-draft-app/tests/     核心数据处理测试
+  prompt-draft-app/index.html 已构建的自包含应用页面
+  windows-package/           Windows 原生启动器、安装器、卸载器和构建工具
+
+使用说明见 prompt-draft-app/README.txt。
+
+开发与验证
+----------
+
+前端没有第三方 JavaScript 包或 CDN 依赖。
+使用较新的 Node.js 可以运行核心测试：
+  node --test prompt-draft-app/tests/core.test.cjs
+
+使用 Python 3 构建完全自包含的页面：
+  python3 prompt-draft-app/build_frontend.py
+
+页面脚本的 SHA-256 CSP 哈希会在构建时自动更新。
+不要只替换成品 HTML 中的 JavaScript 而保留旧哈希；请修改 src 后重新构建。
+
+Windows 安装包
+--------------
+
+构建环境：Linux x86-64、Python 3、GCC 14、GNU binutils 2.44。
+GNU ld 需要支持 i386pep 目标，objcopy 需要支持 pe-x86-64。
+
+从源代码包根目录执行：
+  python3 prompt-draft-app/build_frontend.py
+  python3 windows-package/build.py --app-dir prompt-draft-app
+
+输出安装包位于：
+  windows-package/dist/PromptDraft-Setup-0.1.0-x64.exe
+
+构建使用 Microsoft x64 ABI 及 Win32 Unicode API，链接系统 DLL。
+不使用第三方运行库、不需要联网下载构建依赖，也不附带浏览器内核。
+ELF 到 COFF 转换器用于将本机 GCC 的目标文件提交给 GNU PE 链接器；
+构建时会检查可支持的重定位，并验证 PE 结构、导入及 manifest。
+
+程序采用当前用户安装方式，使用系统 Edge 的独立应用窗口打开本地 index.html。
+浏览器参数不关闭沙箱或 Web 安全机制。
+
+验证范围
+--------
+
+核心 JavaScript 数据处理通过自动测试，内联脚本与 CSP 哈希已检查。
+Windows 可执行文件经过静态 PE、导入、资源及重定位检查。
+这些检查不能代替 Windows 真机安装、界面、输入法、保存与卸载验证。
+当前为未数字签名的预览版本，尚未完成 Windows 端到端运行验证。

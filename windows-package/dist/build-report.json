@@ -1,0 +1,229 @@
+{
+  "version": "0.1.0",
+  "files": [
+    {
+      "file": "PromptDraft.exe",
+      "bytes": 6656,
+      "sha256": "68160b6daad24450b58ce29d67f8f4a867a544e8016a1423e4bbf0b24103d188",
+      "machine": "AMD64",
+      "subsystem": "Windows GUI",
+      "manifest": "asInvoker",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "SHELL32.dll",
+        "SHLWAPI.dll",
+        "USER32.dll"
+      ],
+      "windows_runtime_tested": false,
+      "sections": [
+        {
+          "name": ".text",
+          "rva": 4096,
+          "vsize": 1480,
+          "size": 1536,
+          "raw": 1024,
+          "flags": 1610612768
+        },
+        {
+          "name": ".rdata",
+          "rva": 8192,
+          "vsize": 32,
+          "size": 512,
+          "raw": 2560,
+          "flags": 1073741888
+        },
+        {
+          "name": ".rodata.",
+          "rva": 12288,
+          "vsize": 958,
+          "size": 1024,
+          "raw": 3072,
+          "flags": 1073741888
+        },
+        {
+          "name": ".bss",
+          "rva": 16384,
+          "vsize": 123296,
+          "size": 0,
+          "raw": 0,
+          "flags": 3221225600
+        },
+        {
+          "name": ".idata",
+          "rva": 143360,
+          "vsize": 748,
+          "size": 1024,
+          "raw": 4096,
+          "flags": 1073741888
+        },
+        {
+          "name": ".rsrc",
+          "rva": 147456,
+          "vsize": 1148,
+          "size": 1536,
+          "raw": 5120,
+          "flags": 1073741888
+        }
+      ]
+    },
+    {
+      "file": "Uninstall.exe",
+      "bytes": 7680,
+      "sha256": "64970c496391a0861abb4a5e96a07b0daef32989ae09fabc3258af37aa8de3d5",
+      "machine": "AMD64",
+      "subsystem": "Windows GUI",
+      "manifest": "asInvoker",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "SHELL32.dll",
+        "USER32.dll"
+      ],
+      "windows_runtime_tested": false,
+      "sections": [
+        {
+          "name": ".text",
+          "rva": 4096,
+          "vsize": 1728,
+          "size": 2048,
+          "raw": 1024,
+          "flags": 1610612768
+        },
+        {
+          "name": ".rdata",
+          "rva": 8192,
+          "vsize": 32,
+          "size": 512,
+          "raw": 3072,
+          "flags": 1073741888
+        },
+        {
+          "name": ".rodata.",
+          "rva": 12288,
+          "vsize": 1302,
+          "size": 1536,
+          "raw": 3584,
+          "flags": 1073741888
+        },
+        {
+          "name": ".bss",
+          "rva": 16384,
+          "vsize": 50976,
+          "size": 0,
+          "raw": 0,
+          "flags": 3221225600
+        },
+        {
+          "name": ".idata",
+          "rva": 69632,
+          "vsize": 824,
+          "size": 1024,
+          "raw": 5120,
+          "flags": 1073741888
+        },
+        {
+          "name": ".rsrc",
+          "rva": 73728,
+          "vsize": 1144,
+          "size": 1536,
+          "raw": 6144,
+          "flags": 1073741888
+        }
+      ]
+    },
+    {
+      "file": "PromptDraft-Setup-0.1.0-x64.exe",
+      "bytes": 80896,
+      "sha256": "a5b2def6237512b71008361008ab6f134ded8f694d367e707a2366c5f7803ad7",
+      "machine": "AMD64",
+      "subsystem": "Windows GUI",
+      "manifest": "asInvoker",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "OLE32.dll",
+        "SHELL32.dll",
+        "USER32.dll"
+      ],
+      "windows_runtime_tested": false,
+      "sections": [
+        {
+          "name": ".text",
+          "rva": 4096,
+          "vsize": 2928,
+          "size": 3072,
+          "raw": 1024,
+          "flags": 1610612768
+        },
+        {
+          "name": ".rdata",
+          "rva": 8192,
+          "vsize": 32,
+          "size": 512,
+          "raw": 4096,
+          "flags": 1073741888
+        },
+        {
+          "name": ".rodata.",
+          "rva": 12288,
+          "vsize": 2202,
+          "size": 2560,
+          "raw": 4608,
+          "flags": 1073741888
+        },
+        {
+          "name": ".rodata",
+          "rva": 16384,
+          "vsize": 70336,
+          "size": 70656,
+          "raw": 7168,
+          "flags": 1073741888
+        },
+        {
+          "name": ".bss",
+          "rva": 90112,
+          "vsize": 92576,
+          "size": 0,
+          "raw": 0,
+          "flags": 3221225600
+        },
+        {
+          "name": ".idata",
+          "rva": 184320,
+          "vsize": 1072,
+          "size": 1536,
+          "raw": 77824,
+          "flags": 1073741888
+        },
+        {
+          "name": ".rsrc",
+          "rva": 188416,
+          "vsize": 1164,
+          "size": 1536,
+          "raw": 79360,
+          "flags": 1073741888
+        }
+      ]
+    }
+  ],
+  "payloads": {
+    "launcher": {
+      "bytes": 6656,
+      "sha256": "68160b6daad24450b58ce29d67f8f4a867a544e8016a1423e4bbf0b24103d188"
+    },
+    "uninstaller": {
+      "bytes": 7680,
+      "sha256": "64970c496391a0861abb4a5e96a07b0daef32989ae09fabc3258af37aa8de3d5"
+    },
+    "html": {
+      "bytes": 51598,
+      "sha256": "c1a265249b929e156efc287f99d69d0d6182420fe3fc462b739f32a2c04782f6"
+    },
+    "readme": {
+      "bytes": 4308,
+      "sha256": "5ac92551bd2b53b69549ae3937c124ad2ba16acdcea85634f1185c2e3f555026"
+    }
+  },
+  "validation": "Static PE/ABI/import/manifest/resource/payload checks only. A Windows end-to-end install/uninstall test has not been performed."
+}

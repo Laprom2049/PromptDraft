@@ -1,0 +1,107 @@
+﻿{
+    "pid":  1112,
+    "firstDialog":  {
+                        "title":  "Prompt 文稿",
+                        "cls":  "#32770",
+                        "children":  [
+                                         {
+                                             "cls":  "Button",
+                                             "text":  "确定",
+                                             "visible":  true
+                                         },
+                                         {
+                                             "cls":  "Button",
+                                             "text":  "取消",
+                                             "visible":  true
+                                         },
+                                         {
+                                             "cls":  "Static",
+                                             "text":  "",
+                                             "visible":  true
+                                         },
+                                         {
+                                             "cls":  "Static",
+                                             "text":  "即将安装 Prompt 文稿 0.1.0。\n\n安装位置：\nC:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\n\n仅为当前用户安装，无需管理员权限。\n将添加桌面和开始菜单快捷方式。\n\n请先关闭正在运行的 Prompt 文稿。\n安装和更新会保留 BrowserData 中的草稿。\n\n继续安装？",
+                                             "visible":  true
+                                         }
+                                     ]
+                    },
+    "firstClick":  {
+                       "clicked":  true,
+                       "count":  2,
+                       "text":  "确定"
+                   },
+    "secondDialog":  {
+                         "title":  "Prompt 文稿",
+                         "cls":  "#32770",
+                         "children":  [
+                                          {
+                                              "cls":  "Button",
+                                              "text":  "是(\u0026Y)",
+                                              "visible":  true
+                                          },
+                                          {
+                                              "cls":  "Button",
+                                              "text":  "否(\u0026N)",
+                                              "visible":  true
+                                          },
+                                          {
+                                              "cls":  "Static",
+                                              "text":  "",
+                                              "visible":  true
+                                          },
+                                          {
+                                              "cls":  "Static",
+                                              "text":  "Prompt 文稿已安装完成。\n\n编辑器会尝试更新本机自动恢复副本；请定期保存项目文件。\n\n现在打开编辑器？",
+                                              "visible":  true
+                                          }
+                                      ]
+                     },
+    "secondClick":  {
+                        "clicked":  true,
+                        "count":  2,
+                        "text":  "否(\u0026N)"
+                    },
+    "exited":  true,
+    "exitCode":  0,
+    "installDir":  "C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft",
+    "files":  [
+                  "index.html",
+                  "PromptDraft.exe",
+                  "README.txt",
+                  "Uninstall.exe"
+              ],
+    "installedLauncherBytes":  6656,
+    "installedLauncherHash":  "298c9fadcd26768495feb9c2ac6ec43707b8dbfdfc53d58d32d021e51d6cd284",
+    "installedHtmlHash":  "c1a265249b929e156efc287f99d69d0d6182420fe3fc462b739f32a2c04782f6",
+    "installedUninstallHash":  "f4e337336ccebe75e72c7ebfa904bb0a0e0d07dc66dfc5df2dc4b1a27d438b71",
+    "desktopLinks":  [
+                         "Microsoft Edge.lnk",
+                         "Prompt 文稿.lnk"
+                     ],
+    "startMenuLinks":  [
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\File Explorer.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft Edge.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Accessibility\\LiveCaptions.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Accessibility\\Magnify.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Accessibility\\Narrator.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Accessibility\\On-Screen Keyboard.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Accessibility\\VoiceAccess.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Prompt 文稿\\Prompt 文稿.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Prompt 文稿\\卸载 Prompt 文稿.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Command Prompt.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Control Panel.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Run.lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Windows PowerShell\\Windows PowerShell 5.1 (x86).lnk",
+                           "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Windows PowerShell\\Windows PowerShell 5.1.lnk"
+                       ],
+    "registry":  {
+                     "DisplayName":  "Prompt 文稿",
+                     "DisplayVersion":  "0.1.0",
+                     "Publisher":  "Prompt Draft",
+                     "InstallLocation":  "C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft",
+                     "UninstallString":  "\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\Uninstall.exe\"",
+                     "DisplayIcon":  "C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\PromptDraft.exe"
+                 }
+}

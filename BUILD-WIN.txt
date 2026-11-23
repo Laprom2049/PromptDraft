@@ -1,0 +1,106 @@
+Prompt 文稿 0.1.0 — Windows 原生构建与验证记录
+================================================
+
+本文件记录在 Windows 主机上重新构建安装包的过程与验证结果。
+原有的 BUILD.txt / windows-package/build.py 是 Linux 交叉编译路线，
+本次不改动它们，另加 windows-package/build_win.py 作为 Windows 原生路线。
+
+一、产物
+
+  windows-package/dist/PromptDraft-Setup-0.1.0-x64.exe
+      79,872 字节
+      SHA-256 76c52457845331bc613c2983e4b89ad66b6abefee54da9d711aeb41a5c5c9974
+
+  windows-package/dist/PromptDraft.exe        （内嵌于安装包）
+      6,656 字节   SHA-256 298c9fadcd26768495feb9c2ac6ec43707b8dbfdfc53d58d32d021e51d6cd284
+  windows-package/dist/Uninstall.exe          （内嵌于安装包）
+      7,168 字节   SHA-256 f4e337336ccebe75e72c7ebfa904bb0a0e0d07dc66dfc5df2dc4b1a27d438b71
+  载荷 index.html  51,598 字节  SHA-256 c1a265249b929e156efc287f99d69d0d6182420fe3fc462b739f32a2c04782f6
+  载荷 README.txt   4,308 字节  SHA-256 5ac92551bd2b53b69549ae3937c124ad2ba16acdcea85634f1185c2e3f555026
+
+  注意：包根目录的 INSTALLER-SHA256.txt 记录的是原先 Linux 交叉编译版本
+  （a5b2def6…），与本次 Windows 原生构建的 76c52457… 不同。两者都是同一源码
+  的构建结果，只是编译链接器不同。若只保留一个校验值，请以本文件为准。
+
+二、与 build.py 的差异
+
+  build.py 假定 Linux 主机：gcc -mabi=ms 产生 ELF 目标文件，再用 elf_to_coff.py
+  转成 COFF，并自己生成"仅元数据"的导入库交给 GNU ld。
+
+  Windows 主机上 MinGW-w64 GCC 直接产出 PE/COFF，因此 build_win.py：
+
+  1. 用 gcc 直接编译为 pe-x86-64 目标文件，跳过 ELF→COFF 转换；
+  2. 用工具链自带的 Win32 导入库（libkernel32.a 等），不再手造导入库；
+  3. 仍用 GNU ld -m i386pep 显式链接（--entry entry、--subsystem windows、
+     --dynamicbase、--nxcompat、--no-insert-timestamp、-s），保留原构建的
+     PE 属性；
+  4. 资源段（图标、manifest、版本信息）仍用 objcopy -I binary -O pe-x86-64
+     生成，并按原逻辑回填资源 RVA、计算 PE 校验和；
+  5. 额外提供一个无 CRT 的 runtime-stubs（memcpy/memset/memmove/memcmp），
+     保证 -ffreestanding 下也能链接成功。
+
+  未改动任何原始 C 源码（launcher.c / installer.c / uninstaller.c / winlite.h）、
+  HTML 源文件与 build.py。
+
+三、构建环境与命令
+
+  环境：
+    MinGW-w64 GCC 16.2.0（x86_64-ucrt-posix-seh，WinLibs）
+    GNU ld 2.47 / objcopy / objdump（同一工具链）
+    Python 3.7.4
+    Windows 11 26200（x64）
+
+  命令（在 PromptDraft-source 根目录）：
+    python windows-package/build_win.py --app-dir prompt-draft-app
+
+  可选：先重建前端页面
+    python prompt-draft-app/build_frontend.py
+
+四、验证
+
+  1. 静态检查（build_win.py 内置，不通过即报错退出）
+     - PE32+ / AMD64 / Subsystem = Windows GUI
+     - manifest 含 asInvoker；资源数据项 RVA 落在 .rsrc 内
+     - PE 校验和自洽；无可写可执行段
+     - 导入表只含 KERNEL32 / USER32 / SHELL32 / SHLWAPI / ADVAPI32 / OLE32，
+       不含 msvcrt/ucrtbase/vcruntime 等 C 运行库
+     - 安装包内确实含有 launcher、uninstaller、index.html、README.txt 的
+       逐字节副本（按 SHA-256 与字节内容比对）
+
+  2. Windows Sandbox 端到端（隔离环境，未触碰宿主机桌面）
+     - 安装：双击安装包 → 确认对话框 → 完成对话框，退出码 0；
+       写入 %LOCALAPPDATA%\PromptDraft 下 4 个文件；
+       桌面快捷方式、开始菜单文件夹（含卸载快捷方式）、
+       HKCU 卸载注册项全部建立。
+       安装出的 PromptDraft.exe / index.html / Uninstall.exe 的 SHA-256
+       与本次构建产物完全一致。
+     - 启动：运行已安装的 PromptDraft.exe，启动器找到 Edge 并以独立应用窗口
+       打开本地页面，参数为
+         --app="file:///C:/Users/<用户>/AppData/Local/PromptDraft/index.html"
+         --user-data-dir="…\PromptDraft\BrowserData" --no-first-run --no-default-browser-check
+       页面正常渲染（标题栏"性能优化任务 — Prompt 文稿"，变量、侧栏、分段均可用）。
+     - 卸载：确认对话框 → 临时卸载副本执行清理 → 完成对话框；
+       程序文件、桌面快捷方式、开始菜单文件夹、注册项均被移除，
+       只保留 BrowserData 目录（设计如此）。
+
+     证据文件（原始 JSON 与截图）：
+       windows-package/evidence/install-result.json
+       windows-package/evidence/launch-result.json
+       windows-package/evidence/uninstall-result.json
+       windows-package/evidence/app-window.png
+     note: 上述 JSON 中的中文因沙箱 PowerShell 5.1 按 ANSI 写文件而呈
+     乱码，结构、哈希、路径与布尔值不受影响。
+
+  3. 未验证项
+     - 未做数字签名：首次运行会触发 SmartScreen，需选择"仍要运行"。
+     - 只在 Windows 11（26200）的 Sandbox 内做过端到端，未在 Windows 10
+       真机与不同的 Edge 版本上验证。
+     - 未测试多用户切换、企业策略覆盖 Edge 数据目录、磁盘写满等边界条件。
+     - 未测试从旧版本覆盖升级（同一路径重复安装）。
+
+五、复现与清理
+
+  产物可复现：同一工具链下两次构建得到字节相同的 EXE（--no-insert-timestamp、
+  固定 image base、无调试信息）。中间文件在 windows-package/build-win/。
+
+  重新构建前可删除 windows-package/build-win/ 与 dist/ 下的 EXE。

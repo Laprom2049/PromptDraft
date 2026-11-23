@@ -1,0 +1,74 @@
+﻿{
+    "existedBefore":  true,
+    "uninstallerPid":  6540,
+    "firstDialog":  {
+                        "title":  "Prompt 文稿",
+                        "cls":  "#32770",
+                        "children":  [
+                                         {
+                                             "cls":  "Button",
+                                             "text":  "确定",
+                                             "visible":  true
+                                         },
+                                         {
+                                             "cls":  "Button",
+                                             "text":  "取消",
+                                             "visible":  true
+                                         },
+                                         {
+                                             "cls":  "Static",
+                                             "text":  "",
+                                             "visible":  true
+                                         },
+                                         {
+                                             "cls":  "Static",
+                                             "text":  "要卸载 Prompt 文稿吗？\n\n请先关闭编辑器窗口。\n应用文件、桌面和开始菜单快捷方式将被移除。\nBrowserData 中的本地草稿和偏好设置将保留。",
+                                             "visible":  true
+                                         }
+                                     ]
+                    },
+    "firstClick":  {
+                       "clicked":  true,
+                       "count":  2,
+                       "text":  "确定"
+                   },
+    "temporaryProcess":  7888,
+    "secondDialog":  {
+                         "title":  "Prompt 文稿",
+                         "cls":  "#32770",
+                         "children":  [
+                                          {
+                                              "cls":  "Button",
+                                              "text":  "确定",
+                                              "visible":  true
+                                          },
+                                          {
+                                              "cls":  "Static",
+                                              "text":  "",
+                                              "visible":  true
+                                          },
+                                          {
+                                              "cls":  "Static",
+                                              "text":  "Prompt 文稿已卸载。\n\nBrowserData 中的本地草稿和偏好设置已保留：\nC:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\n\n再次安装到同一位置后，可以继续使用保留的数据。\n\n临时卸载文件由系统临时文件清理机制处理。",
+                                              "visible":  true
+                                          }
+                                      ]
+                     },
+    "secondClick":  {
+                        "clicked":  true,
+                        "count":  1,
+                        "text":  "确定"
+                    },
+    "dirExistsAfter":  true,
+    "remainingFiles":  [
+                           "BrowserData"
+                       ],
+    "desktopLinksAfter":  [
+                              "Microsoft Edge.lnk"
+                          ],
+    "startMenuFolderExists":  false,
+    "promptLinksAfter":  [
+                             "C:\\Users\\WDAGUtilityAccount\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Command Prompt.lnk"
+                         ],
+    "registryExists":  false
+}

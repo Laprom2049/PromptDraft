@@ -1,0 +1,167 @@
+﻿{
+    "exe":  "C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\PromptDraft.exe",
+    "exeExists":  true,
+    "launcherPid":  6372,
+    "launcherExited":  true,
+    "launcherExitCode":  0,
+    "windows":  [
+                    {
+                        "pid":  5552,
+                        "process":  "msedge",
+                        "cls":  "Chrome_WidgetWin_1",
+                        "title":  "性能优化任务 — Prompt 文稿"
+                    },
+                    {
+                        "pid":  7960,
+                        "process":  "TextInputHost",
+                        "cls":  "Windows.UI.Core.CoreWindow",
+                        "title":  "Windows 输入体验"
+                    },
+                    {
+                        "pid":  5808,
+                        "process":  "explorer",
+                        "cls":  "Progman",
+                        "title":  "Program Manager"
+                    }
+                ],
+    "edgeProcesses":  [
+                          {
+                              "id":  1224,
+                              "title":  ""
+                          },
+                          {
+                              "id":  1360,
+                              "title":  ""
+                          },
+                          {
+                              "id":  2012,
+                              "title":  ""
+                          },
+                          {
+                              "id":  3548,
+                              "title":  ""
+                          },
+                          {
+                              "id":  3552,
+                              "title":  ""
+                          },
+                          {
+                              "id":  3800,
+                              "title":  ""
+                          },
+                          {
+                              "id":  4804,
+                              "title":  ""
+                          },
+                          {
+                              "id":  5152,
+                              "title":  ""
+                          },
+                          {
+                              "id":  5552,
+                              "title":  "性能优化任务 — Prompt 文稿"
+                          },
+                          {
+                              "id":  6148,
+                              "title":  ""
+                          },
+                          {
+                              "id":  7192,
+                              "title":  ""
+                          },
+                          {
+                              "id":  7252,
+                              "title":  ""
+                          },
+                          {
+                              "id":  7548,
+                              "title":  ""
+                          },
+                          {
+                              "id":  7648,
+                              "title":  ""
+                          },
+                          {
+                              "id":  7780,
+                              "title":  ""
+                          }
+                      ],
+    "edgeCommandLines":  [
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --app=\"file:///C:/Users/WDAGUtilityAccount/AppData/Local/PromptDraft/index.html\" --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --no-first-run --no-default-browser-check",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=crashpad-handler --user-data-dir=C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData /prefetch:4 --monitor-self-annotation=ptype=crashpad-handler --user-stream-region=648,65568 --database=C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\\Crashpad --annotation=IsOfficialBuild=1 --annotation=channel= --annotation=chromium-version=158.0.8127.37 \"--annotation=exe=C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --annotation=plat=Win64 --annotation=prod=Edge --annotation=ver=158.0.4370.33 --initial-client-data=0x298,0x29c,0x2a0,0x294,0x2a8,0x7ffbfa374650,0x7ffbfa374660,0x7ffbfa374670",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=gpu-process --gpu-recent-crash-count=0 --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --gpu-preferences=WAAAAAAAAABgAACBAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAAEAAAAAIAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA= --startup-read-main-dll --metrics-shmem-handle=2156,i,4318485824342113194,9498834291752494010,262144 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190708988185955192 --mojo-platform-channel-handle=2164 /prefetch:2",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --startup-read-main-dll --metrics-shmem-handle=2392,i,10957176025179502531,13318337152419400509,524288 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190708989122997041 --mojo-platform-channel-handle=3336 /prefetch:11",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=utility --utility-sub-type=storage.mojom.StorageService --lang=zh-CN --service-sandbox-type=service --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --startup-read-main-dll --metrics-shmem-handle=2704,i,5492897364348613984,14159855459890604529,524288 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190708990060038890 --mojo-platform-channel-handle=3360 /prefetch:13",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=renderer --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=5 --skip-read-main-dll --launch-time-ticks=625997266 --metrics-shmem-handle=4168,i,7486218210797045059,44252809032589700,1048576 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190708990997080739 --mojo-platform-channel-handle=4308 /prefetch:1",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=renderer --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --extension-process --renderer-sub-type=extension --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=8 --skip-read-main-dll --launch-time-ticks=626100962 --metrics-shmem-handle=4976,i,222731255580091487,1624720397187646039,1048576 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190708993808206286 --mojo-platform-channel-handle=4936 /prefetch:9",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=renderer --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --extension-process --renderer-sub-type=extension --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=10 --skip-read-main-dll --launch-time-ticks=626111628 --metrics-shmem-handle=4884,i,8802435179708907887,7915151528132058159,1048576 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190708995682289984 --mojo-platform-channel-handle=4900 /prefetch:9",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=renderer --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --extension-process --renderer-sub-type=extension --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=12 --skip-read-main-dll --launch-time-ticks=626123203 --metrics-shmem-handle=5404,i,17333941889204425833,3362057506864225196,1048576 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190708997556373682 --mojo-platform-channel-handle=5360 /prefetch:9",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=renderer --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=13 --skip-read-main-dll --launch-time-ticks=626129718 --metrics-shmem-handle=5556,i,3607526169584861280,17527332127840645349,1048576 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190708998493415531 --mojo-platform-channel-handle=5528 /prefetch:1",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=renderer --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --extension-process --renderer-sub-type=extension --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=14 --skip-read-main-dll --launch-time-ticks=626134903 --metrics-shmem-handle=5680,i,1584595711546942821,8718381046342162126,1048576 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190708999430457380 --mojo-platform-channel-handle=5700 /prefetch:9",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=renderer --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --extension-process --renderer-sub-type=extension --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=15 --skip-read-main-dll --launch-time-ticks=626274488 --metrics-shmem-handle=6876,i,12762220625698286340,2510755105532182445,1048576 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190709000367499229 --mojo-platform-channel-handle=5108 /prefetch:9",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=renderer --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --extension-process --renderer-sub-type=extension --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=16 --skip-read-main-dll --launch-time-ticks=626279215 --metrics-shmem-handle=6896,i,14020466938051172591,1423737302107989019,1048576 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190709001304541078 --mojo-platform-channel-handle=4912 /prefetch:9",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=renderer --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --extension-process --renderer-sub-type=extension --pdf-upsell-enabled --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=17 --skip-read-main-dll --launch-time-ticks=626283456 --metrics-shmem-handle=6916,i,15954576262242592807,1890119719117315270,1048576 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190709002241582927 --mojo-platform-channel-handle=6428 /prefetch:9",
+                             "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --type=utility --utility-sub-type=entity_extraction_service.mojom.Extractor --lang=zh-CN --service-sandbox-type=entity_extraction --onnx-enabled-for-ee --video-capture-use-gpu-memory-buffer --user-data-dir=\"C:\\Users\\WDAGUtilityAccount\\AppData\\Local\\PromptDraft\\BrowserData\" --skip-read-main-dll --metrics-shmem-handle=5000,i,12789362155829201829,16658115815465157118,524288 --field-trial-handle=2188,i,8151153540220158488,13927516608553492114,262144 --variations-seed-version --pseudonymization-salt-handle=2196,i,1943599556669756800,9089271649865338769,4 --trace-process-track-uuid=3190709003178624776 --mojo-platform-channel-handle=6900 /prefetch:14"
+                         ],
+    "browserDataExists":  true,
+    "browserDataEntries":  [
+                               "Ad Blocking",
+                               "Autofill",
+                               "AutoLaunchProtocolsComponent",
+                               "BrowserMetrics",
+                               "CertificateRevocation",
+                               "component_crx_cache",
+                               "Crashpad",
+                               "Default",
+                               "Domain Actions",
+                               "EADPData Component",
+                               "Edge Data Protection Lists",
+                               "Edge Entity Extraction",
+                               "Edge Notifications",
+                               "Edge Shopping",
+                               "Edge Sidebar",
+                               "Edge Signal Triggers",
+                               "Edge Wallet",
+                               "Edge3pSerp",
+                               "EdgeArbitration",
+                               "EdgeEmojiLocales",
+                               "EdgeLanguageDetectionModel",
+                               "EdgeOptimizationGuideModelsManifest",
+                               "extensions_crx_cache",
+                               "GPUPersistentCache",
+                               "GrShaderCache",
+                               "hyphen-data",
+                               "MEIPreload",
+                               "Nurturing",
+                               "OnDeviceHeadSuggestModel",
+                               "OriginTrials",
+                               "PKIMetadata",
+                               "ProvenanceData",
+                               "ProvenanceDataAllowList",
+                               "ProvenanceDataTensors",
+                               "RecoveryImproved",
+                               "Safe Browsing",
+                               "SafetyTips",
+                               "ShaderCache",
+                               "SmartScreen",
+                               "Speech Recognition",
+                               "Subresource Filter",
+                               "Trust Protection Lists",
+                               "TrustTokenKeyCommitments",
+                               "Typosquatting",
+                               "Web Notifications Deny List",
+                               "Well Known Domains",
+                               "WidevineCdm",
+                               "WorkspacesNavigationComponent",
+                               "ZxcvbnData",
+                               "FirstLaunchAfterInstallation",
+                               "Last Browser",
+                               "Last Version",
+                               "Local State",
+                               "lockfile",
+                               "Variations",
+                               "VariationsRuntimeSeedV2",
+                               "VariationsSafeSeedV2",
+                               "VariationsSeedV2"
+                           ]
+}

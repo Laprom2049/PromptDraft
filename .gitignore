@@ -1,0 +1,13 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# 编译中间产物（含本机绝对路径，不入库）
+windows-package/build-win/
+*.o
+*.obj
+*.map
+
+# 系统 / 编辑器
+Thumbs.db
+.DS_Store

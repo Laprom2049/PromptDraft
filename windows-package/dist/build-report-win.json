@@ -1,0 +1,155 @@
+{
+  "version": "0.1.0",
+  "toolchain": "gcc.exe (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r3) 16.2.0",
+  "linker": "GNU ld (Binutils for MinGW-W64 x86_64, built by Brecht Sanders, r3) 2.47.20260726",
+  "host": "win32",
+  "files": [
+    {
+      "file": "PromptDraft.exe",
+      "bytes": 6656,
+      "sha256": "298c9fadcd26768495feb9c2ac6ec43707b8dbfdfc53d58d32d021e51d6cd284",
+      "machine": "AMD64",
+      "subsystem": "Windows GUI",
+      "entry_rva": "0x133e",
+      "manifest": "asInvoker",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "SHELL32.dll",
+        "SHLWAPI.dll",
+        "USER32.dll"
+      ],
+      "sections": [
+        {
+          "name": ".text",
+          "vsize": 1664,
+          "flags": "0x60000020"
+        },
+        {
+          "name": ".rdata",
+          "vsize": 992,
+          "flags": "0x40000040"
+        },
+        {
+          "name": ".bss",
+          "vsize": 123296,
+          "flags": "0xc0000080"
+        },
+        {
+          "name": ".idata",
+          "vsize": 736,
+          "flags": "0x40000040"
+        },
+        {
+          "name": ".rsrc",
+          "vsize": 1148,
+          "flags": "0x40000040"
+        }
+      ]
+    },
+    {
+      "file": "Uninstall.exe",
+      "bytes": 7168,
+      "sha256": "f4e337336ccebe75e72c7ebfa904bb0a0e0d07dc66dfc5df2dc4b1a27d438b71",
+      "machine": "AMD64",
+      "subsystem": "Windows GUI",
+      "entry_rva": "0x1416",
+      "manifest": "asInvoker",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "SHELL32.dll",
+        "USER32.dll"
+      ],
+      "sections": [
+        {
+          "name": ".text",
+          "vsize": 1984,
+          "flags": "0x60000020"
+        },
+        {
+          "name": ".rdata",
+          "vsize": 1344,
+          "flags": "0x40000040"
+        },
+        {
+          "name": ".bss",
+          "vsize": 50976,
+          "flags": "0xc0000080"
+        },
+        {
+          "name": ".idata",
+          "vsize": 808,
+          "flags": "0x40000040"
+        },
+        {
+          "name": ".rsrc",
+          "vsize": 1144,
+          "flags": "0x40000040"
+        }
+      ]
+    },
+    {
+      "file": "PromptDraft-Setup-0.1.0-x64.exe",
+      "bytes": 79872,
+      "sha256": "76c52457845331bc613c2983e4b89ad66b6abefee54da9d711aeb41a5c5c9974",
+      "machine": "AMD64",
+      "subsystem": "Windows GUI",
+      "entry_rva": "0x1500",
+      "manifest": "asInvoker",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "ole32.dll",
+        "SHELL32.dll",
+        "USER32.dll"
+      ],
+      "sections": [
+        {
+          "name": ".text",
+          "vsize": 3168,
+          "flags": "0x60000020"
+        },
+        {
+          "name": ".rdata",
+          "vsize": 72064,
+          "flags": "0x40000040"
+        },
+        {
+          "name": ".bss",
+          "vsize": 92576,
+          "flags": "0xc0000080"
+        },
+        {
+          "name": ".idata",
+          "vsize": 1052,
+          "flags": "0x40000040"
+        },
+        {
+          "name": ".rsrc",
+          "vsize": 1164,
+          "flags": "0x40000040"
+        }
+      ]
+    }
+  ],
+  "payloads": {
+    "launcher": {
+      "bytes": 6656,
+      "sha256": "298c9fadcd26768495feb9c2ac6ec43707b8dbfdfc53d58d32d021e51d6cd284"
+    },
+    "uninstaller": {
+      "bytes": 7168,
+      "sha256": "f4e337336ccebe75e72c7ebfa904bb0a0e0d07dc66dfc5df2dc4b1a27d438b71"
+    },
+    "html": {
+      "bytes": 51598,
+      "sha256": "c1a265249b929e156efc287f99d69d0d6182420fe3fc462b739f32a2c04782f6"
+    },
+    "readme": {
+      "bytes": 4308,
+      "sha256": "5ac92551bd2b53b69549ae3937c124ad2ba16acdcea85634f1185c2e3f555026"
+    }
+  },
+  "validation": "Static PE/ABI/import/manifest/resource/payload checks only. Run the installer end to end on Windows to confirm UI, shortcut and uninstall behaviour."
+}
